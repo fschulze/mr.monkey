@@ -1,6 +1,8 @@
 from unittest import TestCase, defaultTestLoader
+import warnings
 
 from mr.monkey import replace, wrap
+from mr.monkey import MonkeyWarning, MonkeySignatureWarning
 
 import mock
 
@@ -8,6 +10,8 @@ import mock
 class MonkeyTests(TestCase):
     def setUp(self):
         reload(mock)
+        warnings.filterwarnings('ignore', category=MonkeyWarning)
+        warnings.filterwarnings('ignore', category=MonkeySignatureWarning)
 
     def testReplace(self):
         self.assertEqual(mock.foo(), (1, 2, 3))
